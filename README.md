@@ -19,6 +19,44 @@ What things you need to install the software and how to install them
 * [XAMPP](https://www.apachefriends.org/download.html)
 * [PostgreSQL](https://www.postgresql.org/)
 
+## Building Database
+
+```
+create database makelar;
+\c makelar
+
+create table borrower
+(borrowerid serial unique not null primary key,
+name text not null,
+email varchar(30) unique not null,
+contact int unique not null);
+
+create table makelar
+(brokerid serial not null primary key,
+buildingid serial not null,
+borrowernum int not null,
+startdate date not null,
+enddate date not null,
+bookingpartnerid int not null);
+
+create table building
+(buildingid serial not null primary key,
+name text not null,
+ownerid int not null,
+price int not null,
+status text not null);
+
+create table buildingowner
+(ownerid serial not null primary key,
+name text not null,
+contact int not null);
+
+create table bookingpartner
+(bookingpartnerid serial not null primary key,
+website varchar(20) not null,
+contact int not null);
+```
+
 ### Useful Links for Modification Purposes
 
 * [Connecting PostgreSQL and PHP](https://www.w3resource.com/PostgreSQL/tutorial.php)
