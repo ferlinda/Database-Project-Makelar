@@ -1,7 +1,6 @@
 # Database Project: Makelar
 
 This is a simple web database system with PHP, HTML, CSS, and PostgreSQL.
-![Example](img/2019-10-15 (1).png)
 
 ## Getting Started
 
