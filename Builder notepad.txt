@@ -1,0 +1,81 @@
+create database makelar;
+\c makelar
+
+create table borrower
+(borrowerid serial unique not null primary key,
+name text not null,
+email varchar(30) unique not null,
+contact int unique not null);
+
+create table makelar
+(brokerid serial not null primary key,
+buildingid serial not null,
+borrowernum int not null,
+startdate date not null,
+enddate date not null,
+bookingpartnerid int not null);
+
+create table building
+(buildingid serial not null primary key,
+name text not null,
+ownerid int not null,
+price int not null,
+status text not null);
+
+create table buildingowner
+(ownerid serial not null primary key,
+name text not null,
+contact int not null);
+
+create table bookingpartner
+(bookingpartnerid serial not null primary key,
+website varchar(20) not null,
+contact int not null);
+
+--------------------------------------------------------
+
+INSERT INTO bookingpartner(bookingpartnerid,website,contact) 
+VALUES
+(DEFAULT,'Agoda.com',97398190),
+(DEFAULT,'Traveloka.com',27853767),
+(DEFAULT,'Booking.com',19199881),
+(DEFAULT,'Roomster.com',37169780)
+;
+
+INSERT INTO building(buildingid,name,ownerid,price,status)
+VALUES
+(DEFAULT,'Poisedon Tree House',2,9000000,'Unoccupied'),
+(DEFAULT,'June Villa',3,3000000,'Unoccupied'),
+(DEFAULT,'Brooks Winter House',4,4500000,'Unoccupied'),
+(DEFAULT,'Harrison Beach Hut',5,8000000,'Unoccupied'),
+(DEFAULT,'Gilbert Villa',2,9500000,'Unoccupied'),
+(DEFAULT,'Olympus Yard',2,12000000,'Unoccupied'),
+(DEFAULT,'Howard SportHall',4,45000000,'Unoccupied'),
+(DEFAULT,'Dominic Park',4,7000000,'Unoccupied'),
+(DEFAULT,'Kingsley House',3,10000000,'Unoccupied'),
+(DEFAULT,'Cross Garden',5,30000000,'Unoccupied'),
+(DEFAULT,'McMillan Coworking Space',5,7500000,'Unoccupied'),
+(DEFAULT,'South End Function Hall',4,9000000,'Unoccupied')
+;
+
+INSERT INTO buildingowner(ownerid,name,contact)
+VALUES
+(DEFAULT,'Olivia Brooks',9723753),
+(DEFAULT,'Gilbert Elias',2897198),
+(DEFAULT,'Christopher Howard',3989189),
+(DEFAULT,'Edgar Cross',4726821),
+(DEFAULT,'Raeliana McMillan',3873987),
+(DEFAULT,'Elizabeth Midford',9927091),
+(DEFAULT,'Donatella Versace',3726872)
+;
+
+select a.name,a.contact,b.name,c.startdate,c.enddate,d.website
+from borrower a,building b,makelar c,bookingpartner d
+where a.contact=c.borrowernum
+and b.buildingid=c.buildingid
+and c.bookingpartnerid=d.bookingpartnerid;
+
+SELECT * FROM building
+INNER JOIN buildingowner ON building.ownerid= buildingowner.ownerid;
+
+
